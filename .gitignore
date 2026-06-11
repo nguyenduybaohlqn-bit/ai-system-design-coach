@@ -216,3 +216,29 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ==========================================
+# Frontend / JavaScript / Node.js stuff
+# ==========================================
+node_modules/
+/npm-debug.log*
+/yarn-errors.log*
+/yarn-debug.log*
+/.pnpm-debug.log*
+
+# Production / Build outputs (Thư mục chứa code Frontend sau khi tối ưu để deploy)
+dist/
+build/
+out/
+.next/
+.nuxt/
+
+# Frontend local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Log files của hệ thống / IDE liên quan đến web
+.eslintcache
+.stylelintcache

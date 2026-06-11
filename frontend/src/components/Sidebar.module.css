@@ -1,0 +1,204 @@
+/* ─── Sidebar shell ─────────────────────────────── */
+.sidebar {
+  --icon-color: #888;
+
+  flex-shrink: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-secondary, #f7f7f7);
+  border-left: 0.5px solid var(--color-border, #e0e0e0);
+  overflow: hidden;
+  transition: width 0.26s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Toggle row ────────────────────────────────── */
+.topRow {
+  padding: 12px;
+  border-bottom: 0.5px solid var(--color-border, #e0e0e0);
+  display: flex;
+}
+
+.toggleBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 0.5px solid var(--color-border, #e0e0e0);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.toggleBtn:hover { background: var(--color-bg-hover, #ebebeb); }
+
+/* ─── New Chat button ───────────────────────────── */
+.newChatBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  margin: 8px 8px 4px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s;
+  text-align: left;
+}
+.newChatBtn:hover { background: var(--color-bg-hover, #ebebeb); }
+.newChatBtn.centred { justify-content: center; }
+
+.iconWrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #EEEDFE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.newChatLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text, #1a1a1a);
+  white-space: nowrap;
+}
+
+/* ─── Chat list ─────────────────────────────────── */
+.chatList {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #d0d0d0 transparent;
+}
+.chatList::-webkit-scrollbar { width: 3px; }
+.chatList::-webkit-scrollbar-thumb { background: #d0d0d0; border-radius: 4px; }
+
+.sectionLabel {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-muted, #999);
+  padding: 12px 20px 6px;
+  white-space: nowrap;
+}
+
+.chatRow {
+  display: block;
+  width: calc(100% - 16px);
+  margin: 1px 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  border-left: 2px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s, border-color 0.12s;
+}
+.chatRow:hover { background: var(--color-bg-hover, #ebebeb); }
+
+.chatRowActive {
+  background: var(--color-bg-hover, #ebebeb);
+  border-left-color: #7F77DD;
+}
+
+.chatTitle {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text, #1a1a1a);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chatTime {
+  display: block;
+  font-size: 11px;
+  color: var(--color-text-muted, #999);
+  margin-top: 2px;
+}
+
+/* ─── Collapsed nav icons ───────────────────────── */
+.collapsedNav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 4px;
+  gap: 4px;
+}
+
+.iconBtn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.iconBtn:hover { background: var(--color-bg-hover, #ebebeb); }
+
+/* ─── Account ───────────────────────────────────── */
+.accountRow {
+  border-top: 0.5px solid var(--color-border, #e0e0e0);
+  padding: 10px 12px;
+}
+
+.accountBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 4px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s;
+  text-align: left;
+}
+.accountBtn:hover { background: var(--color-bg-hover, #ebebeb); }
+.accountBtn.centred { justify-content: center; }
+
+.avatarCircle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #EEEDFE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.accountInfo {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.accountName {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text, #1a1a1a);
+  white-space: nowrap;
+}
+
+.accountPlan {
+  font-size: 11px;
+  color: var(--color-text-muted, #999);
+  white-space: nowrap;
+}
