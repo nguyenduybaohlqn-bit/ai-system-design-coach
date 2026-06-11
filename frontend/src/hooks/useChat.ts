@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import type { Message } from "../types";
 
-const BACKEND_URL = "http://localhost:3001/chat";
+const BACKEND_URL = "http://127.0.0.1:8000/api/chat";
 
 interface UseChatReturn {
   messages: Message[];
@@ -46,21 +46,22 @@ export function useChat(): UseChatReturn {
         {
           id: Date.now().toString(),
           role: "assistant",
-          content: data.reply,
+          content: data.message || "Xin lỗi, tôi không nhận được phản hồi hợp lệ từ server.",
           timestamp: new Date(),
         },
       ]);
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Date.now().toString(),
-          role: "assistant",
-          content: "Không thể kết nối backend.",
-          timestamp: new Date(),
-        },
-      ]);
-    } finally {
+    } catch (err) {
+  console.error("Lỗi fetch:", err); // Xem trong Console
+  setMessages((prev) => [
+    ...prev,
+    {
+      id: Date.now().toString(),
+      role: "assistant",
+      content: `Lỗi: ${err}`, // Hiện lỗi thật lên màn hình
+      timestamp: new Date(),
+    },
+  ]);
+} finally {
       setLoading(false);
     }
   }, [input, messages, loading]);
