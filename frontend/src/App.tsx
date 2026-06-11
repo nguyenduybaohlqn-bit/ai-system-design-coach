@@ -31,7 +31,7 @@ const App: React.FC = () => {
         activeChatId={activeChatId}
         onSelectChat={setActiveChatId}
         onNewChat={handleNewChat}
-        userName="dbao"
+        userName="You"
         userPlan="Free plan"
       />
       <ChatArea

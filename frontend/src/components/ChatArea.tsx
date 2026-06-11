@@ -21,7 +21,7 @@ const EmptyState: React.FC = () => (
     </div>
     <div className={styles.emptyText}>
       <h2>Xin chào! Tôi có thể giúp gì cho bạn?</h2>
-      <p>Hãy bắt đầu một cuộc trò chuyện với Claude</p>
+      <p>Hãy bắt đầu một cuộc trò chuyện với AI system design coach</p>
     </div>
   </div>
 );
@@ -75,8 +75,8 @@ const ChatArea: React.FC<Props> = ({
         <div className={styles.headerLogo}>
           <SparkleIcon size={16} color="#7F77DD" />
         </div>
-        <span className={styles.headerTitle}>Claude</span>
-        <span className={styles.modelBadge}>Sonnet 4</span>
+        <span className={styles.headerTitle}>AI system design coach</span>
+        <span className={styles.modelBadge}>ver 1.0</span>
       </header>
 
       {/* ── Messages ── */}
@@ -96,7 +96,7 @@ const ChatArea: React.FC<Props> = ({
             ref={textareaRef}
             value={input}
             rows={1}
-            placeholder="Nhắn tin với Claude…"
+            placeholder="Nhắn tin với AI system design coach…"
             className={styles.textarea}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
@@ -113,7 +113,7 @@ const ChatArea: React.FC<Props> = ({
           </button>
         </div>
         <p className={styles.disclaimer}>
-          Claude có thể mắc lỗi. Hãy kiểm tra thông tin quan trọng.
+          AI coach có thể mắc lỗi. Hãy kiểm tra thông tin quan trọng.
         </p>
       </div>
     </div>
