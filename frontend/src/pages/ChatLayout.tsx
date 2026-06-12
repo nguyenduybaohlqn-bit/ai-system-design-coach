@@ -10,7 +10,11 @@ const INITIAL_CHATS: Chat[] = [
   { id:"c6", title:"Multivariable calculus chain rule",  preview:"", time:"2 tuần trước", messages:[] },
 ];
 
-const App: React.FC = () => {
+interface ChatLayoutProps {
+  onSignOut: () => void;
+}
+
+const ChatLayout: React.FC<ChatLayoutProps> = ({ onSignOut }) => {
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
   const [activeChatId,    setActiveChatId]    = useState("c1");
   const [chats]                               = useState<Chat[]>(INITIAL_CHATS);
@@ -31,6 +35,7 @@ const App: React.FC = () => {
         activeChatId={activeChatId}
         onSelectChat={setActiveChatId}
         onNewChat={handleNewChat}
+        onSignOut={onSignOut}
         userName="You"
         userPlan="Free plan"
       />
@@ -41,9 +46,8 @@ const App: React.FC = () => {
         onInputChange={setInput}
         onSend={sendMessage}
       />
-    
     </div>
   );
 };
 
-export default App;
+export default ChatLayout;

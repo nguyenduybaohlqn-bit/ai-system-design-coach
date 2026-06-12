@@ -18,15 +18,17 @@ interface UseAuthReturn {
   isAuthenticated: boolean;
   signIn: (data: SignInData) => Promise<void>;
   signUp: (data: SignUpData) => Promise<void>;
+  signOut: () => void;
 }
 
 export function useAuth(): UseAuthReturn {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [isAuthenticated, setIsAuthenticated] = useState(
-    () => !!localStorage.getItem("accessToken")
-  );
-    const SignIn =  useCallback(async (data: SignInData) => {
+      () => !!localStorage.getItem("accessToken")
+    );
+
+    const signIn = useCallback(async (data: SignInData) => {
         setLoading(true);
         setError(null);
         try {
@@ -39,7 +41,8 @@ export function useAuth(): UseAuthReturn {
             setLoading(false);
         }
     }, []);
-    const SignUp =  useCallback(async (data: SignUpData) => {
+
+    const signUp = useCallback(async (data: SignUpData) => {
         setLoading(true);
         setError(null);
         try {
@@ -53,5 +56,11 @@ export function useAuth(): UseAuthReturn {
         }
     }, []);
 
-    return { loading, error, isAuthenticated, signIn: SignIn, signUp: SignUp };  
+    const signOut = useCallback(() => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("user");
+        setIsAuthenticated(false);
+    }, []);
+
+    return { loading, error, isAuthenticated, signIn, signUp, signOut };
 }

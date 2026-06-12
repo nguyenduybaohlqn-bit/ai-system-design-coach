@@ -2,7 +2,7 @@ import React from "react";
 import type { Chat } from "../types";
 import {
   PlusIcon, MsgIcon, UserIcon,
-  ChevronLeftIcon, ChevronRightIcon,
+  ChevronLeftIcon, ChevronRightIcon, LogoutIcon,
 } from "./Icons";
 import styles from "./Sidebar.module.css";
 
@@ -15,6 +15,7 @@ interface Props {
   onNewChat: () => void;
   userName?: string;
   userPlan?: string;
+  onSignOut: () => void;
 }
 
 const Sidebar: React.FC<Props> = ({
@@ -26,6 +27,7 @@ const Sidebar: React.FC<Props> = ({
   onNewChat,
   userName = "User",
   userPlan = "Free plan",
+  onSignOut,
 }) => {
   return (
     <aside
@@ -88,22 +90,42 @@ const Sidebar: React.FC<Props> = ({
 
       {/* ── Account ──────────────────────────────────── */}
       <div className={styles.accountRow}>
-        <button
-          className={`${styles.accountBtn} ${!expanded ? styles.centred : ""}`}
-          title="Tài khoản"
-          aria-label="Tài khoản của bạn"
-        >
-          <span className={styles.avatarCircle}>
-            <UserIcon size={15} color="#7F77DD" />
-          </span>
-          {expanded && (
-            <span className={styles.accountInfo}>
-              <span className={styles.accountName}>{userName}</span>
-              <span className={styles.accountPlan}>{userPlan}</span>
-            </span>
-          )}
-        </button>
-      </div>
+  <button
+    className={`${styles.accountBtn} ${!expanded ? styles.centred : ""}`}
+    title="Tài khoản"
+    aria-label="Tài khoản của bạn"
+  >
+    <span className={styles.avatarCircle}>
+      <UserIcon size={15} color="#7F77DD" />
+    </span>
+    {expanded && (
+      <span className={styles.accountInfo}>
+        <span className={styles.accountName}>{userName}</span>
+        <span className={styles.accountPlan}>{userPlan}</span>
+      </span>
+    )}
+  </button>
+
+  {expanded ? (
+    <button
+      className={styles.signOutBtn}
+      onClick={onSignOut}
+      title="Đăng xuất"
+      aria-label="Đăng xuất"
+    >
+      <LogoutIcon size={16} color="var(--icon-color)" />
+    </button>
+  ) : (
+    <button
+      className={styles.iconBtn}
+      onClick={onSignOut}
+      title="Đăng xuất"
+      aria-label="Đăng xuất"
+    >
+      <LogoutIcon size={16} color="var(--icon-color)" />
+    </button>
+  )}
+</div>
     </aside>
   );
 };

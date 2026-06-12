@@ -3,7 +3,7 @@ import ChatLayout from "./pages/ChatLayout";
 import { useAuth } from "./hooks/useAuth";
 
 function App() {
-  const { loading, error, isAuthenticated, signIn, signUp } = useAuth();
+  const { loading, error, isAuthenticated, signIn, signUp, signOut } = useAuth();
 
   if (!isAuthenticated) {
     return (
@@ -16,7 +16,7 @@ function App() {
     );
   }
 
-  return <ChatLayout />;
+  return <ChatLayout onSignOut={signOut} />;
 }
 
 export default App;

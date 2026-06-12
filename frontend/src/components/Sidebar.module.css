@@ -12,6 +12,40 @@
   transition: width 0.26s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.accountRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.accountBtn {
+  flex: 1; /* để accountBtn chiếm phần còn lại, signOutBtn nằm cạnh */
+}
+
+.signOutBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--icon-color, #888);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.signOutBtn:hover {
+  background: var(--color-bg-hover, #ebebeb);
+  color: #e5484d; /* đỏ nhạt, gợi ý hành động "đăng xuất" */
+}
+
+.signOutBtn.centred {
+  margin: 0 auto;
+}
+
 /* ─── Toggle row ────────────────────────────────── */
 .topRow {
   padding: 12px;
