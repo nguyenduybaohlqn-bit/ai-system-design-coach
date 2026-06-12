@@ -20,7 +20,7 @@ export async function sendSignInRequest(data: {
 }
 
 export async function sendSignUpRequest(data: {
-    name: string;
+    username: string;
     email: string; 
     password: string;
 }) {

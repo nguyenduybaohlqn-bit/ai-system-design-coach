@@ -3,7 +3,6 @@ from sqlalchemy.orm import declarative_base, mapped_column
 
 Base = declarative_base()
 
-# Tạo "khuôn" tương đương với bảng users trong database
 class User(Base):
     __tablename__ = "users"
     

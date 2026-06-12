@@ -1,5 +1,7 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
+
+from app.services import auth_service
 
 router = APIRouter(prefix="/auth")
 
@@ -9,13 +11,39 @@ class SignupRequest(BaseModel):
     password: str
 
 class SigninRequest(BaseModel):
-    username: str
+    email: str
     password: str
 
 @router.post("/signup")
 def signup(signup_request: SignupRequest):
-    return {"message": f"User {signup_request.username} signed up successfully!"}
+    try:
+        return auth_service.signup(
+            signup_request.username, 
+            signup_request.email, 
+            signup_request.password
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, 
+            detail=str(e)
+        )
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, 
+            detail="Lỗi hệ thống nội bộ!"
+        )
 
 @router.post("/signin")
 def signin(signin_request: SigninRequest):
-    return {"message": f"User {signin_request.username} signed in successfully!"}
+    try:
+        return auth_service.signin(signin_request.email, signin_request.password)
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, 
+            detail=str(e)
+        )
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, 
+            detail="Lỗi hệ thống nội bộ!"
+        )

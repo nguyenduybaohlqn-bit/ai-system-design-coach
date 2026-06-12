@@ -17,7 +17,7 @@ import styles from "./AuthPage.module.css";
 // 1. Định nghĩa khuôn mẫu (Type) cho các hàm callback nhận vào từ App cha
 interface AuthPageProps {
   onSignIn?: (data: { email: string; password: string; remember: boolean }) => void;
-  onSignUp?: (data: { name: string; email: string; password: string }) => void;
+  onSignUp?: (data: { username: string; email: string; password: string }) => void;
   onGoogleAuth?: () => void;
   onGithubAuth?: () => void;
   loading?: boolean;
@@ -33,7 +33,7 @@ export default function AuthPage({
   const [mode, setMode] = useState<"signin" | "signup">("signin"); // Định rõ text mang giá trị cố định
   const [showPassword, setShowPassword] = useState(false);
 
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
@@ -43,7 +43,7 @@ export default function AuthPage({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => { // Thêm kiểu cho sự kiện Form
     e.preventDefault();
     if (isSignUp) {
-      onSignUp?.({ name, email, password });
+      onSignUp?.({ username, email, password });
     } else {
       onSignIn?.({ email, password, remember });
     }
@@ -86,7 +86,7 @@ export default function AuthPage({
         <form className={styles.form} onSubmit={handleSubmit}>
           {isSignUp && (
             <div className={styles.field}>
-              <label className={styles.label} htmlFor="name">
+              <label className={styles.label} htmlFor="username">
                 Username
               </label>
               <div className={styles.inputBox}>
@@ -94,12 +94,12 @@ export default function AuthPage({
                   <i className="ti ti-user" aria-hidden="true" />
                 </span>
                 <input
-                  id="name"
+                  id="username"
                   className={styles.input}
                   type="text"
                   placeholder="User123"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   autoComplete="name"
                   required
                 />

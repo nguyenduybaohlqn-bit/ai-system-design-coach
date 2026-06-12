@@ -1,5 +1,5 @@
 import AuthPage from "./pages/AuthPage";
-import ChatLayout from "./pages/ChatLayout"; // khung chat của bạn
+import ChatLayout from "./pages/ChatLayout"; 
 import { useAuth } from "./hooks/useAuth";
 
 function App() {

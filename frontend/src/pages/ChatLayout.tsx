@@ -3,7 +3,7 @@ import type { Chat } from "../types";
 import { useChat } from "../hooks/useChat";
 import ChatArea from "../components/ChatArea";
 import Sidebar  from "../components/Sidebar";
-import "./App.css";
+import "./ChatLayout.css";
 
 /* ── Mock recent chats (replace with real persistence later) ── */
 const INITIAL_CHATS: Chat[] = [
