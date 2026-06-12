@@ -1,0 +1,283 @@
+/* ─── Page wrapper ──────────────────────────────── */
+.page {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 100vh;
+  background: var(--color-bg-secondary, #f7f7f7);
+  padding: 24px;
+}
+
+/* ─── Card ───────────────────────────────────────── */
+.card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--color-bg-primary, #fff);
+  border: 0.5px solid var(--color-border, #e0e0e0);
+  border-radius: 16px;
+  padding: 32px 28px;
+}
+
+/* ─── Header (logo + title) ─────────────────────── */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.headerLogo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #EEEDFE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #534AB7;
+  font-size: 20px;
+}
+
+.headerTitle {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-text, #1a1a1a);
+  margin: 0;
+}
+
+.headerSubtitle {
+  font-size: 14px;
+  color: var(--color-text-muted, #888);
+  margin: 0;
+  text-align: center;
+}
+
+/* ─── Tabs (sign in / sign up) ──────────────────── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--color-bg-secondary, #f7f7f7);
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.tab {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-muted, #888);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tabActive {
+  background: var(--color-bg-primary, #fff);
+  color: var(--color-text, #1a1a1a);
+}
+
+/* ─── Form ───────────────────────────────────────── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text, #1a1a1a);
+}
+
+.inputBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 0.5px solid var(--color-border, #e0e0e0);
+  border-radius: 12px;
+  background: var(--color-bg-secondary, #f7f7f7);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.inputBox:focus-within {
+  border-color: #7F77DD;
+  box-shadow: 0 0 0 3px #EEEDFE;
+}
+
+.inputIcon {
+  flex-shrink: 0;
+  color: var(--color-text-muted, #bbb);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--color-text, #1a1a1a);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  min-width: 0;
+}
+
+.input::placeholder { color: var(--color-text-muted, #bbb); }
+
+.eyeBtn {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted, #bbb);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  padding: 0;
+  transition: color 0.15s;
+}
+
+.eyeBtn:hover { color: var(--color-text, #1a1a1a); }
+
+/* ─── Row (remember me / forgot password) ───────── */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-muted, #888);
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox {
+  width: 14px;
+  height: 14px;
+  accent-color: #7F77DD;
+  cursor: pointer;
+}
+
+.link {
+  color: #534AB7;
+  font-weight: 500;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 0;
+}
+
+.link:hover { text-decoration: underline; }
+
+/* ─── Error message ──────────────────────────────── */
+.error {
+  font-size: 12px;
+  color: #D85A30;
+  margin: -4px 0 0;
+}
+
+/* ─── Submit button ──────────────────────────────── */
+.submitBtn {
+  width: 100%;
+  padding: 11px 0;
+  border-radius: 12px;
+  border: none;
+  background: #7F77DD;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: filter 0.15s, opacity 0.15s;
+  margin-top: 4px;
+}
+
+.submitBtn:hover:not(:disabled) { filter: brightness(1.08); }
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ─── Divider ────────────────────────────────────── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 0.5px;
+  background: var(--color-border, #e0e0e0);
+}
+
+.dividerText {
+  font-size: 12px;
+  color: var(--color-text-muted, #aaa);
+}
+
+/* ─── Social buttons ─────────────────────────────── */
+.socialRow {
+  display: flex;
+  gap: 10px;
+}
+
+.socialBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0;
+  border: 0.5px solid var(--color-border, #e0e0e0);
+  border-radius: 12px;
+  background: var(--color-bg-primary, #fff);
+  color: var(--color-text, #1a1a1a);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.socialBtn:hover {
+  background: var(--color-bg-secondary, #f7f7f7);
+  border-color: #7F77DD;
+}
+
+/* ─── Footer note ────────────────────────────────── */
+.footerNote {
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-text-muted, #888);
+  margin: 20px 0 0;
+}
+
+.disclaimer {
+  text-align: center;
+  font-size: 11px;
+  color: var(--color-text-muted, #aaa);
+  margin-top: 16px;
+}
