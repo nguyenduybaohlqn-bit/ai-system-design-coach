@@ -2,9 +2,6 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Tự động tìm đường dẫn tuyệt đối của thư mục backend/
-# __file__ là vị trí của config.py (backend/app/config.py)
-# .parent là thư mục app/, .parent.parent là thư mục backend/
 BASE_DIR = Path(__file__).resolve().parent
 
 # Chỉ định chính xác vị trí file .env nằm ở gốc thư mục backend
