@@ -1,7 +1,6 @@
 from sqlalchemy import Integer, String
-from sqlalchemy.orm import declarative_base, mapped_column
-
-Base = declarative_base()
+from sqlalchemy.orm import mapped_column
+from app.database import Base
 
 class User(Base):
     __tablename__ = "users"
@@ -10,3 +9,4 @@ class User(Base):
     username = mapped_column(String(50), unique=True, index=True)
     email = mapped_column(String(100), unique=True, index=True)
     password = mapped_column(String(100))
+

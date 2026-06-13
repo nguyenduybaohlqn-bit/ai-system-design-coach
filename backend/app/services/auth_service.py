@@ -1,5 +1,5 @@
-from app.database.db import SessionLocal
-from app.database.models import User
+from app.database import SessionLocal
+from app.models import User
 from app.repositories import user_repository
 
 

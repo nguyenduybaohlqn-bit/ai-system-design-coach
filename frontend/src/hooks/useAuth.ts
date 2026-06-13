@@ -36,7 +36,7 @@ export function useAuth(): UseAuthReturn {
             localStorage.setItem("accessToken", response.token);
             setIsAuthenticated(true);
         } catch (err) {
-            setError(String(err));
+            setError("Đăng nhập thất bại: Email hoặc mật khẩu không đúng.");
         } finally {
             setLoading(false);
         }
@@ -50,7 +50,7 @@ export function useAuth(): UseAuthReturn {
             localStorage.setItem("accessToken", response.token);
             setIsAuthenticated(true);
         } catch (err) {
-            setError(String(err));
+            setError("Đăng ký thất bại: Email có thể đã được sử dụng hoặc dữ liệu không hợp lệ.");
         } finally {
             setLoading(false);
         }

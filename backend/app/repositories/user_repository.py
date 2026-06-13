@@ -1,4 +1,4 @@
-from app.database.models import User
+from app.models.user import User
 
 def get_by_email(db, email):
         return db.query(User).filter(User.email == email).first()
