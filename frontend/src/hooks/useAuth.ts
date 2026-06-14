@@ -25,7 +25,7 @@ export function useAuth(): UseAuthReturn {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [isAuthenticated, setIsAuthenticated] = useState(
-      () => !!localStorage.getItem("accessToken")
+      () => !!localStorage.getItem("user")
     );
 
     const signIn = useCallback(async (data: SignInData) => {
@@ -33,7 +33,7 @@ export function useAuth(): UseAuthReturn {
         setError(null);
         try {
             const response = await sendSignInRequest(data);
-            localStorage.setItem("accessToken", response.token);
+            localStorage.setItem("user", JSON.stringify(response.user));
             setIsAuthenticated(true);
         } catch (err) {
             setError("Đăng nhập thất bại: Email hoặc mật khẩu không đúng.");
@@ -47,7 +47,7 @@ export function useAuth(): UseAuthReturn {
         setError(null);
         try {
             const response = await sendSignUpRequest(data);
-            localStorage.setItem("accessToken", response.token);
+            localStorage.setItem("user",JSON.stringify(response.user));
             setIsAuthenticated(true);
         } catch (err) {
             setError("Đăng ký thất bại: Email có thể đã được sử dụng hoặc dữ liệu không hợp lệ.");
@@ -63,4 +63,14 @@ export function useAuth(): UseAuthReturn {
     }, []);
 
     return { loading, error, isAuthenticated, signIn, signUp, signOut };
+}
+
+export function getCurrentUser() {
+  const user = localStorage.getItem("user");
+
+  if (!user) {
+    return null;
+  }
+
+  return JSON.parse(user);
 }

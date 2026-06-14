@@ -10,7 +10,12 @@ def signin(email: str, password: str):
         if user is None:
             raise ValueError("Email không tồn tại!")
         if user.password == password:
-            return {"status": "success", "message": "Đăng nhập thành công!"}
+            return {"status": "success",
+            "message": "Đăng nhập thành công!",
+            "user": {
+                "id": user.id,
+                "username": user.username,
+            }}
         else:
             raise ValueError("Mật khẩu không chính xác!")
         
@@ -28,7 +33,7 @@ def signup(username: str, email: str, password: str):
             raise ValueError("Email đã tồn tại trong hệ thống!")
         
         new_user = User(username=username, email=email, password=password)
-        user_repository.create(db, new_user)
+        user_repository.create_user(db, new_user)
         return {"status": "success", "message": "Đăng ký thành công!"}
         
     except Exception as e:

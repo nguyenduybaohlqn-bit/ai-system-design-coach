@@ -20,8 +20,8 @@ const EmptyState: React.FC = () => (
       <SparkleIcon size={28} color="#7F77DD" />
     </div>
     <div className={styles.emptyText}>
-      <h2>Xin chào! Tôi có thể giúp gì cho bạn?</h2>
-      <p>Hãy bắt đầu một cuộc trò chuyện với AI system design coach</p>
+      <h2>Hãy trình bày ý tưởng thiết kế hệ thống của bạn</h2>
+      <p>Bắt đầu thảo luận ý tưởng cùng AI system design coach</p>
     </div>
   </div>
 );
@@ -76,7 +76,7 @@ const ChatArea: React.FC<Props> = ({
           <SparkleIcon size={16} color="#7F77DD" />
         </div>
         <span className={styles.headerTitle}>AI system design coach</span>
-        <span className={styles.modelBadge}>ver 1.0</span>
+        <span className={styles.modelBadge}>version 1.0</span>
       </header>
 
       {/* ── Messages ── */}

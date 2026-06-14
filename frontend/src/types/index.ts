@@ -8,7 +8,7 @@ export interface Message {
 export interface Chat {
   id: string;
   title: string;
-  preview: string;
   time: string;
-  messages: Message[];
+  preview?: string;
+  messages?: Message[];
 }
