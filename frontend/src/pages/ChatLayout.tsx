@@ -6,9 +6,7 @@ import Sidebar  from "../components/Sidebar";
 import "./ChatLayout.css";
 
 /* ── Mock recent chats (replace with real persistence later) ── */
-const INITIAL_CHATS: Chat[] = [
-  { id:"c6", title:"Multivariable calculus chain rule",  preview:"", time:"2 tuần trước", messages:[] },
-];
+const INITIAL_CHATS: Chat[] = [];
 
 interface ChatLayoutProps {
   onSignOut: () => void;
@@ -16,7 +14,7 @@ interface ChatLayoutProps {
 
 const ChatLayout: React.FC<ChatLayoutProps> = ({ onSignOut }) => {
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
-  const [activeChatId,    setActiveChatId]    = useState("c1");
+  const [activeChatId,    setActiveChatId]    = useState("");
   const [chats]                               = useState<Chat[]>(INITIAL_CHATS);
 
   const { messages, input, loading, setInput, sendMessage, clearMessages } = useChat();
