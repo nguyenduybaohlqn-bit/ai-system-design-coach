@@ -34,8 +34,7 @@ def chat(user_id: str, message: str, conversation_id: int | None = None) -> Chat
             model='gemini-2.5-flash-lite',
             contents=message,
         )
-        print(f"[DEBUG] Gemini response = {response.text[:50]}")
-
+        
         print("[DEBUG] Lưu assistant message...")
         conversation_repository.save_message(db, conversation_id=conversation_id, role="assistant", content=response.text)
 
