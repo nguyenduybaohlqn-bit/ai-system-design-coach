@@ -10,7 +10,12 @@ def signin(email: str, password: str):
         if user is None:
             raise ValueError("Email không tồn tại!")
         if user.password == password:
-            return {"status": "success", "message": "Đăng nhập thành công!"}
+            return {"status": "success",
+            "message": "Đăng nhập thành công!",
+            "user": {
+                "id": user.id,
+                "username": user.username,
+            }}
         else:
             raise ValueError("Mật khẩu không chính xác!")
         

@@ -76,7 +76,7 @@ const ChatArea: React.FC<Props> = ({
           <SparkleIcon size={16} color="#7F77DD" />
         </div>
         <span className={styles.headerTitle}>AI system design coach</span>
-        <span className={styles.modelBadge}>ver 1.0</span>
+        <span className={styles.modelBadge}>version 1.0</span>
       </header>
 
       {/* ── Messages ── */}

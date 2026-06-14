@@ -18,8 +18,6 @@ import styles from "./AuthPage.module.css";
 interface AuthPageProps {
   onSignIn?: (data: { email: string; password: string; remember: boolean }) => void;
   onSignUp?: (data: { username: string; email: string; password: string }) => void;
-  onGoogleAuth?: () => void;
-  onGithubAuth?: () => void;
   loading?: boolean;
   error?: string | null;
 }
