@@ -86,7 +86,7 @@ def chat(user_id: str, message: str, conversation_id: int | None = None) -> Chat
         db.close()
 
 def set_title_from_message(message: str) -> str:
-    set_title_prompt = "Dựa trên nội dung tin nhắn sau, hãy tạo một tiêu đề ngắn gọn (tối đa 10 từ) phù hợp để đặt tên cho cuộc trò chuyện này, không viết các kí tự đặc biệt nếu không cần thiết\n\n"
+    set_title_prompt = "Dựa trên nội dung tin nhắn sau, hãy tạo một tiêu đề ngắn gọn (tốt nhất là khoảng 5 - 6 từ, tối đa 10 từ) phù hợp để đặt tên cho cuộc trò chuyện này, không viết các kí tự đặc biệt nếu không cần thiết\n\n"
     
     print("[DEBUG] Gọi Gemini tạo tiêu đề cuộc trò chuyện...")
     response = safe_generate_content(
