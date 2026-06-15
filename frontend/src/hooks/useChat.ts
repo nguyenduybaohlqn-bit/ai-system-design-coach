@@ -39,7 +39,8 @@ export function useChat(
       const data = await sendChatMessage(text, conversationId);  // ← đổi tên
 
       if (!conversationId && data.conversation_id) {             // ← đổi tên
-        onConversationCreated(data.conversation_id, text);
+        // Use server-provided conversation title if available, otherwise fall back to user's message
+        onConversationCreated(data.conversation_id, data.conversation_title || text);
       }
 
       const assistantMsg: Message = {

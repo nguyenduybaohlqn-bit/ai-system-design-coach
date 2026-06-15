@@ -8,3 +8,4 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     message: str
     conversation_id: int
+    conversation_title: str

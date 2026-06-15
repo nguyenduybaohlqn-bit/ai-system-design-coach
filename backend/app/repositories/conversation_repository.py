@@ -42,3 +42,6 @@ def get_messages(db, conversation_id):
         .order_by(Message.created_at)
         .all()
     )
+
+def get_conversation(db, conversation_id):
+    return db.query(Conversation).filter(Conversation.id == conversation_id).first()
