@@ -16,8 +16,8 @@ def get_db():
         db.close()
 
 @router.post("/chat")
-def chat(chat_request: ChatRequest):
-    return chat_service.chat(
+async def chat(chat_request: ChatRequest):
+    return await chat_service.chat(
         chat_request.user_id,
         chat_request.message,
         chat_request.conversation_id

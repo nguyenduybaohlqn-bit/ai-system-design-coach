@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, KeyboardEvent } from "react";
 import type { Message } from "../types";
 import MessageBubble from "./MessageBubble";
-import ThinkingDots from "./ThinkingDots";
 import { SparkleIcon, SendIcon } from "./Icons";
 import styles from "./ChatArea.module.css";
 
@@ -85,7 +84,6 @@ const ChatArea: React.FC<Props> = ({
           ? <EmptyState />
           : messages.map((m) => <MessageBubble key={m.id} message={m} />)
         }
-        {loading && <ThinkingDots />}
         <div ref={endRef} />
       </div>
 

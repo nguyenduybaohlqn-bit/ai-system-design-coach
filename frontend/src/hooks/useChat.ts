@@ -9,12 +9,12 @@ interface UseChatReturn {
   setInput: (v: string) => void;
   sendMessage: () => Promise<void>;
   clearMessages: () => void;
-  loadMessages: (msgs: Message[]) => void;  // ← thêm
+  loadMessages: (msgs: Message[]) => void;
 }
 
 export function useChat(
-  conversationId: number | null,                                          // ← thêm
-  onConversationCreated: (id: number, firstMessage: string) => void,     // ← thêm
+  conversationId: number | null,
+  onConversationCreated: (id: number, title: string) => void,
 ): UseChatReturn {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput]       = useState("");
@@ -30,45 +30,68 @@ export function useChat(
       content: text,
       timestamp: new Date(),
     };
-
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
     setLoading(true);
 
-    try {
-      const data = await sendChatMessage(text, conversationId);  // ← đổi tên
+    const assistantId = Date.now().toString() + "_assistant";
+    setMessages((prev) => [
+      ...prev,
+      { id: assistantId, role: "assistant", content: "", timestamp: new Date() },
+    ]);
 
-      if (!conversationId && data.conversation_id) {             // ← đổi tên
-        // Use server-provided conversation title if available, otherwise fall back to user's message
-        onConversationCreated(data.conversation_id, data.conversation_title || text);
+    const queue: string[] = [];
+    let done = false;
+
+    const interval = setInterval(() => {
+      if (queue.length > 0) {
+        // Lấy 1 chunk từ queue, append vào UI
+        const next = queue.shift()!;
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === assistantId
+              ? { ...msg, content: msg.content + next }
+              : msg
+          )
+        );
+      } else if (done) {
+        // Queue rỗng và stream đã xong → dừng interval
+        clearInterval(interval);
       }
+    }, 18);
 
-      const assistantMsg: Message = {
-        id: Date.now().toString(),
-        role: "assistant",
-        content: data.message || "Xin lỗi, tôi không nhận được phản hồi hợp lệ từ server.",
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, assistantMsg]);
-    } catch (err) {
-      console.error(err);
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Date.now().toString(),
-          role: "assistant",
-          content: `Lỗi: ${String(err)}`,
-          timestamp: new Date(),
-        },
-      ]);
-    } finally {
-      setLoading(false);
-    }
-  }, [input, loading, conversationId, onConversationCreated]);  // ← thêm 2 deps
+    await sendChatMessage(
+      text,
+      conversationId,
+      (chunk) => {
+        const chars = chunk.split("");
+        for (const char of chars) {
+            queue.push(char);
+        }
+      },
+      (newId, newTitle) => {
+        done = true;
+        if (!conversationId && newId) {
+          onConversationCreated(newId, newTitle || text);
+        }
+        setLoading(false);
+      },
+      (err) => {
+        console.error(err);
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === assistantId
+              ? { ...msg, content: `Lỗi: ${err.message}` }
+              : msg
+          )
+        );
+        setLoading(false);
+      }
+    );
+  }, [input, loading, conversationId, onConversationCreated]);
 
   const clearMessages = useCallback(() => setMessages([]), []);
+  const loadMessages  = useCallback((msgs: Message[]) => setMessages(msgs), []);
 
-  const loadMessages = useCallback((msgs: Message[]) => setMessages(msgs), []);
-
-  return { messages, input, loading, setInput, sendMessage, clearMessages, loadMessages };  // ← thêm loadMessages
+  return { messages, input, loading, setInput, sendMessage, clearMessages, loadMessages };
 }

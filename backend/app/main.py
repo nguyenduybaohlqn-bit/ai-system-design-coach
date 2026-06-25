@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import Base, engine
 from app.api.routes import chat, auth
-import app.models
 
 app = FastAPI()
 
@@ -19,7 +18,8 @@ app.add_middleware(
     allow_origins=origins,           # Cho phép các nguồn trong danh sách trên
     allow_credentials=True,
     allow_methods=["*"],             # Cho phép tất cả các hàm GET, POST, PUT, DELETE...
-    allow_headers=["*"],             # Cho phép tất cả các Headers gửi lên
+    allow_headers=["*"],
+    expose_headers=["X-Conversation-Id", "X-Conversation-Title"],            
 )
 
 app.include_router(chat.router, prefix="/api", tags=["Chat"])

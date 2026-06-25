@@ -24,8 +24,11 @@ export interface MessageRecord {
 
 export async function sendChatMessage(
   message: string,
-  conversationId: number | null
-): Promise<ChatResponse> {
+  conversationId: number | null,
+  onChunk: (chunk: string) => void,
+  onDone: (conversationId: number, conversationTitle: string) => void,
+  onError: (error: Error) => void
+): Promise<void> {
   const user = getCurrentUser();
   const res = await fetch(`${BASE}/chat`, {
     method: "POST",
@@ -33,7 +36,29 @@ export async function sendChatMessage(
     body: JSON.stringify({ user_id: user.id, conversation_id: conversationId, message }),
   });
   if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
-  return res.json();
+  const newConversationId = Number(res.headers.get("X-Conversation-Id"));
+  const rawTitle = res.headers.get("X-Conversation-Title") ?? "";
+  const newConversationTitle = decodeURIComponent(rawTitle);
+
+  const reader = res.body?.getReader();
+  if (!reader) {
+    onError(new Error("ReadableStream không khả dụng"));
+    return;
+  }
+
+  const decoder = new TextDecoder("utf-8");
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      onChunk(decoder.decode(value, { stream: true }));
+    }
+  } catch (err) {
+    onError(err instanceof Error ? err : new Error(String(err)));
+  } finally {
+    reader.releaseLock();
+    onDone(newConversationId, newConversationTitle);
+  }
 }
 
 export async function getUserConversations(): Promise<ConversationSummary[]> {
