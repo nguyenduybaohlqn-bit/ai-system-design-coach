@@ -58,7 +58,7 @@ export function useChat(
         // Queue rỗng và stream đã xong → dừng interval
         clearInterval(interval);
       }
-    }, 18);
+    }, 14);
 
     await sendChatMessage(
       text,
