@@ -1,3 +1,4 @@
+from multiprocessing import context
 import os
 import traceback
 from fastapi import HTTPException
@@ -5,11 +6,13 @@ from fastapi.responses import StreamingResponse
 from google import genai
 from google.genai import types
 from google.genai import errors
+from urllib.parse import quote
 
 from app.config import settings
 from app.database import SessionLocal
 from app.repositories import conversation_repository
-from urllib.parse import quote, unquote
+from app.rag.retriever import retrieve
+
 
 if not settings.GEMINI_API_KEY:
     raise ValueError("LỖI: Chưa có GEMINI_API_KEY. Vui lòng kiểm tra lại file .env")
@@ -97,15 +100,21 @@ async def chat(user_id: str, message: str, conversation_id: int | None = None) -
         conversation_repository.save_message(db, conversation_id=conversation_id, role="user", content=message)
 
         history = conversation_repository.get_messages(db, conversation_id)
+        context = retrieve(message, top_k=5)
         contents = build_gemini_contents(history)
-
         async def streaming_with_save():
             try:
                 chunks = []
                 async for text in stream_generator(
                     primary_model='gemini-2.5-flash',
                     fallback_model='gemini-2.5-flash-lite',
-                    contents=contents
+                    contents=contents,
+                    config=types.GenerateContentConfig(
+                        system_instruction=f""""Bạn là một trợ lý AI chuyên về thiết kế hệ thống. "
+                                           "Hãy trả lời câu hỏi của người dùng dựa trên kiến thức và các tài liệu tham khảo được cung cấp." \
+                                           "Reference Knowledge:
+                                            {context}""",
+                        )
                 ):
                     chunks.append(text)
                     yield text

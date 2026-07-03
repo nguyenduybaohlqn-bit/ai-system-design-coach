@@ -21,8 +21,9 @@ def retrieve(query: str, top_k: int = 5) -> list[dict]:
         chunks.append({
             "text"      : results["documents"][0][i],
             "source"    : results["metadatas"][0][i]["source"],
-            "similarity": round(1 - results["distances"][0][i], 4)
+            "similarity": round(results["distances"][0][i], 4)
         })
+        print(f"Đã tìm thấy chunk: {chunks[-1]['text'][:30]}... từ file: {chunks[-1]['source']} với độ tương đồng: {chunks[-1]['similarity']}")
 
     return chunks
 
